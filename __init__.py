@@ -22,11 +22,10 @@ def resume_2():
 def resume_template():
     return render_template("resume_template.html")
 
-
 # Création d'une nouvelle route pour la lecture de la BDD
 @app.route("/consultation/")
 def ReadBDD():
-    conn = sqlite3.connect('/home/artuuuuur2/www/flask/database.db')
+    conn = sqlite3.connect('~/database.db')
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM livres;')
     data = cursor.fetchall()
