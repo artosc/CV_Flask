@@ -30,9 +30,9 @@ import sqlite3
 # Création d'une nouvelle route pour la lecture de la BDD
 @app.route("/consultation/")
 def ReadBDD():
-    conn = sqlite3.connect('database.db')
+    conn = sqlite3.connect('/home/artuuuuur2/www/flask/database.db')
     cursor = conn.cursor()
-    cursor.execute('SELECT * FROM clients;')
+    cursor.execute('SELECT * FROM livres;')
     data = cursor.fetchall()
     conn.close()
     
