@@ -13,7 +13,7 @@ jobs:
           script: |
             cd $HOME/www/
   
-   Copy:
+  Copy:
     needs: Connexion
     runs-on: ubuntu-latest
     steps:
