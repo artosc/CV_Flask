@@ -38,3 +38,19 @@ def ReadBDD():
     
     # Rendre le template HTML et transmettre les données
     return render_template('read_data.html', data=data)
+
+@app.route('/post/<int:post_id>')
+def get_post(post_id):
+    conn = get_db_connection()
+    post = conn.execute('SELECT * FROM livres WHERE id = ?', (post_id,)).fetchone()
+    conn.close()
+
+    # Si la publication avec l'ID spécifié n'est pas trouvée, renvoie une réponse 404 Not Found
+    if post is None:
+        return jsonify(error='Post not found'), 404
+
+    # Convertit la publication en un format JSON
+    json_post = {'id': post['id'], 'title': post['title'], 'auteur': post['auteur']}
+    
+    # Renvoie la réponse JSON
+    return jsonify(post=json_post)
