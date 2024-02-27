@@ -22,6 +22,31 @@ def resume_2():
 def resume_template():
     return render_template("resume_template.html")
 
+@app.route('/messages', methods=['GET', 'POST'])
+def messages():
+    try:
+        if request.method == 'POST':
+            # Récupérer les données du formulaire
+            email = request.form['email']
+            message = request.form['message']
+
+            # Insérer les données dans la base de données
+            with sqlite3.connect('database.db') as conn:
+                cursor = conn.cursor()
+                cursor.execute('INSERT INTO messages (email, message) VALUES (?, ?)', (email, message))
+                conn.commit()
+
+            # Rediriger vers la page de consultation des messages après l'ajout
+            return redirect(url_for('ReadBDD'))
+
+        # Si la méthode est GET, simplement rendre le template du formulaire
+        return render_template('messages.html')
+
+    except Exception as e:
+        print("Une erreur s'est produite : ", str(e))
+        print(traceback.format_exc())
+        return str(e), 500
+
 # Création d'une nouvelle route pour la lecture de la BDD
 @app.route("/consultation/")
 def ReadBDD():
@@ -52,3 +77,21 @@ def get_post(post_id):
 
 if(__name__ == "__main__"):
     app.run()
+
+
+
+
+
+                                                                                                                                                                                                                  
+import sqlite3
+                                                                                                                                                                                                                   
+connection = sqlite3.connect('database.db')
+                                                                                                                                                                                                                   
+with open('schema.sql') as f:
+    connection.executescript(f.read())                                                                                                                                                                             
+                                                                                                                                                                                                                   
+cur = connection.cursor()                                                                                                                                                                                          
+insert = "INSERT INTO messages_cv (email, message) VALUES (?, ?)",                                                                                                                                                                                                                   
+                                                                                                                                                            
+connection.close()                                                                                                                                                                                                 
+                                  
