@@ -78,20 +78,3 @@ def get_post(post_id):
 if(__name__ == "__main__"):
     app.run()
 
-
-
-
-
-                                                                                                                                                                                                                  
-import sqlite3
-                                                                                                                                                                                                                   
-connection = sqlite3.connect('database.db')
-                                                                                                                                                                                                                   
-with open('schema.sql') as f:
-    connection.executescript(f.read())                                                                                                                                                                             
-                                                                                                                                                                                                                   
-cur = connection.cursor()                                                                                                                                                                                          
-insert = "INSERT INTO messages_cv (email, message) VALUES (?, ?)",                                                                                                                                                                                                                   
-                                                                                                                                                            
-connection.close()                                                                                                                                                                                                 
-                                  
